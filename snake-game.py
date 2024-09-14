@@ -72,7 +72,7 @@ def game_loop():
     while not game_over:
         while game_close:
             dis.fill(blue)
-            message("You Lost! Press Q-Quit or C-Play Again", red)
+            message("You Lost! Press Q-Quit or C-Play Again", red)   
             display_score(length_of_snake - 1)
             pygame.display.update()
 
@@ -83,6 +83,9 @@ def game_loop():
                         game_close = False
                     if event.key == pygame.K_c:
                         game_loop()
+                elif event.type == pygame.QUIT:
+                        game_over = True
+                        game_close = False
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
