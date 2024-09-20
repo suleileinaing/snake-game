@@ -23,7 +23,6 @@ pygame.display.set_caption('Snake Game')
 
 # Set clock and snake speed
 clock = pygame.time.Clock()
-snake_speed = 15
 snake_block = 10
 
 # Define fonts
@@ -45,10 +44,19 @@ def message(msg, color):
     mesg = font_style.render(msg, True, color)
     dis.blit(mesg, [width / 6, height / 3])
 
+#
+def game_manual():
+    manual= True
+    while manual:
+        dis.fill(blue) 
+        msg = "hi, type s to start"
+        message(msg, red)
+        pygame.display.update()
+
 # Game loop
 def game_loop():
 
-    global snake_speed
+    snake_speed = 15
 
     game_over = False
     game_close = False
@@ -73,6 +81,7 @@ def game_loop():
     food2_y = round(random.randrange(0, height - snake_block) / 10.0) * 10.0
 
     while not game_over:
+        game_manual()
         while game_close:
             dis.fill(blue)
             message("You Lost! Press Q-Quit or C-Play Again", red)   
@@ -85,7 +94,6 @@ def game_loop():
                         game_over = True
                         game_close = False
                     if event.key == pygame.K_c:
-                        snake_speed = 15
                         game_loop()
                 elif event.type == pygame.QUIT:
                         game_over = True
@@ -139,16 +147,17 @@ def game_loop():
             food2_y = round(random.randrange(0, height - snake_block) / 10.0) * 10.0
             length_of_snake += 1
 
+            if (length_of_snake-1) % 10 == 0 and length_of_snake!= 1:
+                snake_speed += 5
+
         if x1 == food2_x and y1 == food2_y:
             game_close= True
-
-        if ((((length_of_snake-1) % 2) == 0) and length_of_snake!= 1):
-            snake_speed += 0.5
 
         clock.tick(snake_speed)
 
     pygame.quit()
     quit()
 
-# Run the game
-game_loop()
+game_manual()
+# # Run the game
+# game_loop()
