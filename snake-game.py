@@ -47,6 +47,9 @@ def message(msg, color):
 
 # Game loop
 def game_loop():
+
+    global snake_speed
+
     game_over = False
     game_close = False
 
@@ -82,6 +85,7 @@ def game_loop():
                         game_over = True
                         game_close = False
                     if event.key == pygame.K_c:
+                        snake_speed = 15
                         game_loop()
                 elif event.type == pygame.QUIT:
                         game_over = True
@@ -137,6 +141,9 @@ def game_loop():
 
         if x1 == food2_x and y1 == food2_y:
             game_close= True
+
+        if ((((length_of_snake-1) % 2) == 0) and length_of_snake!= 1):
+            snake_speed += 0.5
 
         clock.tick(snake_speed)
 
