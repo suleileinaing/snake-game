@@ -40,18 +40,34 @@ def draw_snake(snake_block, snake_list):
         pygame.draw.rect(dis, green, [x[0], x[1], snake_block, snake_block])
 
 # Function to display messages
-def message(msg, color):
+def message(msg, color, location):
     mesg = font_style.render(msg, True, color)
-    dis.blit(mesg, [width / 6, height / 3])
+    dis.blit(mesg, location)
 
 #
 def game_manual():
     manual= True
     while manual:
-        dis.fill(blue) 
-        msg = "hi, type s to start"
-        message(msg, red)
+        dis.fill(black) 
+        message("Welcome to Snake Game!", white, [200, 100])
+        message("Use arrow keys to move.", white, [207, 125])
+        message("Eat one white food will earn you one point.", white, [130, 150])
+        message("EATING RED FOOD WILL KILL YOUR SNAKE.", red, [120, 175])
+        message("Type 's' to start, 'q' to quit", white, [200, 225])
         pygame.display.update()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_q:
+                    pygame.quit()
+                    quit()
+                if event.key == pygame.K_s:
+                    manual = False
+
 
 # Game loop
 def game_loop():
@@ -81,10 +97,9 @@ def game_loop():
     food2_y = round(random.randrange(0, height - snake_block) / 10.0) * 10.0
 
     while not game_over:
-        game_manual()
         while game_close:
             dis.fill(blue)
-            message("You Lost! Press Q-Quit or C-Play Again", red)   
+            message("You Lost! Press Q-Quit or C-Play Again", red,[width / 6, height / 3])   
             display_score(length_of_snake - 1)
             pygame.display.update()
 
@@ -159,5 +174,6 @@ def game_loop():
     quit()
 
 game_manual()
-# # Run the game
-# game_loop()
+
+# Run the game
+game_loop()
