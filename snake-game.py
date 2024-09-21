@@ -44,6 +44,22 @@ def message(msg, color, location):
     mesg = font_style.render(msg, True, color)
     dis.blit(mesg, location)
 
+def pause_game():
+    pause = True 
+    while pause :
+        dis.fill(black)
+        message("Game paused. Press 'p' to continue again", white, [width / 6, height / 3])
+        pygame.display.update()
+
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_p:
+                    pause = False
+
 #
 def game_manual():
     manual= True
@@ -53,7 +69,7 @@ def game_manual():
         message("Use arrow keys to move.", white, [207, 125])
         message("Eat one white food will earn you one point.", white, [130, 150])
         message("EATING RED FOOD WILL KILL YOUR SNAKE.", red, [120, 175])
-        message("Type 's' to start, 'q' to quit", white, [200, 225])
+        message("Type 's' to start, 'p' to pause and 'q' to quit", white, [130, 225])
         pygame.display.update()
 
         for event in pygame.event.get():
@@ -111,8 +127,8 @@ def game_loop():
                     if event.key == pygame.K_c:
                         game_loop()
                 elif event.type == pygame.QUIT:
-                        game_over = True
-                        game_close = False
+                    game_over = True
+                    game_close = False
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -130,6 +146,8 @@ def game_loop():
                 elif event.key == pygame.K_DOWN:
                     y1_change = snake_block
                     x1_change = 0
+                elif event.key == pygame.K_p:
+                    pause_game()
 
         if x1 >= width or x1 < 0 or y1 >= height or y1 < 0:
             game_close = True
