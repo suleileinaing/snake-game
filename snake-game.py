@@ -88,7 +88,7 @@ def game_manual():
 # Game loop
 def game_loop():
 
-    snake_speed = 15
+    snake_speed = 5
 
     game_over = False
     game_close = False
